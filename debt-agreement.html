@@ -187,22 +187,26 @@
             <button onclick="toggleEditor()" class="text-gray-400 hover:text-white text-xl">&times;</button>
         </div>
 
-        <form id="agreementForm" class="p-5 space-y-4 text-xs">
+        <form id="agreementForm" class="p-5 space-y-4 text-xs" onsubmit="event.preventDefault(); applyAndCloseEditor();">
             <!-- CONSULTANT INFO -->
             <div class="border-b pb-3">
                 <h4 class="font-bold text-navy-900 text-sm mb-2 flex items-center"><i class="fa-solid fa-building mr-1.5 text-gold-600"></i> Advisory Details</h4>
                 <div class="space-y-2">
                     <div>
                         <label class="block font-medium text-gray-700">Company Name</label>
-                        <input type="text" id="input_advisorName" value="TERAS LEGACY RESOURCE ADVISORY" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
+                        <input type="text" id="input_advisorName" value="" placeholder="e.g., TERAS LEGACY RESOURCE ADVISORY" oninput="updateDocumentValues()" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
                     </div>
                     <div>
                         <label class="block font-medium text-gray-700">Registration No.</label>
-                        <input type="text" id="input_advisorReg" value="202603031087 (003819597-A)" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
+                        <input type="text" id="input_advisorReg" value="" placeholder="e.g., 202603031087 (003819597-A)" oninput="updateDocumentValues()" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
                     </div>
                     <div>
-                        <label class="block font-medium text-gray-700">Director Name</label>
-                        <input type="text" id="input_directorName" value="MOHD KAMARUL HAQIM BIN ANUAR" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
+                        <label class="block font-medium text-gray-700">Director / Rep Name</label>
+                        <input type="text" id="input_directorName" value="" placeholder="Enter Representative Name" oninput="updateDocumentValues()" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
+                    </div>
+                    <div>
+                        <label class="block font-medium text-gray-700">Reference No.</label>
+                        <input type="text" id="input_refNo" value="" placeholder="e.g., 2026-8842" oninput="updateDocumentValues()" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
                     </div>
                 </div>
             </div>
@@ -213,58 +217,52 @@
                 <div class="space-y-2">
                     <div>
                         <label class="block font-medium text-gray-700">Client Full Name</label>
-                        <input type="text" id="input_clientName" value="MOHD YUSRY BIN MOHD YUSOFF" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
+                        <input type="text" id="input_clientName" value="" placeholder="Enter Client Full Name" oninput="updateDocumentValues()" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
                     </div>
                     <div>
                         <label class="block font-medium text-gray-700">IC / NRIC Number</label>
-                        <input type="text" id="input_clientIc" value="840520-14-5185" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
+                        <input type="text" id="input_clientIc" value="" placeholder="Enter NRIC Number" oninput="updateDocumentValues()" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
                     </div>
                     <div>
                         <label class="block font-medium text-gray-700">Agreement Date</label>
-                        <input type="text" id="input_agreementDate" value="12TH JUNE 2026" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
-                    </div>
-                    <div>
-                        <label class="block font-medium text-gray-700">Residential Address</label>
-                        <textarea id="input_clientAddress" rows="2" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">2 JALAN PANDAN 7/3, PANDAN JAYA, CHERAS, 55100 KUALA LUMPUR</textarea>
+                        <input type="text" id="input_agreementDate" value="" placeholder="e.g., 22nd Aug 2026" oninput="updateDocumentValues()" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
                     </div>
                 </div>
             </div>
 
-            <!-- FINANCIAL PROPOSAL -->
+            <!-- AGREEMENT TERMS -->
             <div class="border-b pb-3">
-                <h4 class="font-bold text-navy-900 text-sm mb-2 flex items-center"><i class="fa-solid fa-calculator mr-1.5 text-gold-600"></i> Financial Numbers</h4>
-                <div class="grid grid-cols-2 gap-2">
+                <h4 class="font-bold text-navy-900 text-sm mb-2 flex items-center"><i class="fa-solid fa-file-contract mr-1.5 text-gold-600"></i> Agreement Terms</h4>
+                <div class="space-y-2">
                     <div>
-                        <label class="block font-medium text-gray-700">Max Loan (RM)</label>
-                        <input type="number" id="input_maxLoan" value="338000" oninput="recalculateProposal()" class="w-full mt-1 p-2 border rounded">
+                        <label class="block font-medium text-gray-700">Consultancy Fee</label>
+                        <input type="text" id="input_consultancyFee" value="" placeholder="e.g., RM7,000.00" oninput="updateDocumentValues()" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
                     </div>
                     <div>
-                        <label class="block font-medium text-gray-700">Fee Rate (%)</label>
-                        <input type="number" id="input_feeRate" value="19" oninput="recalculateProposal()" class="w-full mt-1 p-2 border rounded">
+                        <label class="block font-medium text-gray-700">Cancellation Fine</label>
+                        <input type="text" id="input_cancellationFine" value="" placeholder="e.g., RM5,000.00" oninput="updateDocumentValues()" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
                     </div>
                     <div>
-                        <label class="block font-medium text-gray-700">SST Rate (%)</label>
-                        <input type="number" id="input_sstRate" value="8" oninput="recalculateProposal()" class="w-full mt-1 p-2 border rounded">
-                    </div>
-                    <div>
-                        <label class="block font-medium text-gray-700">Tenure (Years)</label>
-                        <input type="text" id="input_tenure" value="10 TAHUN" class="w-full mt-1 p-2 border rounded">
-                    </div>
-                    <div>
-                        <label class="block font-medium text-gray-700">Monthly Pay (RM)</label>
-                        <input type="text" id="input_monthly" value="4,101.00" class="w-full mt-1 p-2 border rounded">
-                    </div>
-                    <div>
-                        <label class="block font-medium text-gray-700">Total Settlement</label>
-                        <input type="number" id="input_totalSettle" value="73662" oninput="recalculateProposal()" class="w-full mt-1 p-2 border rounded">
+                        <label class="block font-medium text-gray-700">Fee Collection Bank Account</label>
+                        <input type="text" id="input_bankDetails" value="" placeholder="e.g., CIMB BANK: (7072644592 - Nur Syaziana)" oninput="updateDocumentValues()" class="w-full mt-1 p-2 border rounded focus:ring-1 focus:ring-navy-900">
                     </div>
                 </div>
             </div>
 
-            <button type="button" onclick="updateDocumentValues()" class="w-full bg-navy-900 hover:bg-navy-800 text-white py-2.5 rounded font-bold transition shadow">
-                Apply Updates to Document
+            <button type="button" onclick="applyAndCloseEditor()" class="w-full bg-navy-900 hover:bg-navy-800 text-white py-2.5 rounded font-bold transition shadow flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-check"></i>
+                <span>Apply Updates to Document</span>
             </button>
         </form>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toastNotification" class="no-print fixed bottom-5 right-5 bg-navy-950 text-gold-500 border border-gold-500/40 px-4 py-3 rounded-lg shadow-2xl flex items-center space-x-3 transition-all duration-300 opacity-0 pointer-events-none transform translate-y-4 z-50">
+        <i class="fa-solid fa-circle-check text-green-400 text-lg"></i>
+        <div>
+            <p class="font-bold text-xs text-white">Document Updated!</p>
+            <p class="text-[10.5px] text-gray-300">Changes applied to document & PDF export.</p>
+        </div>
     </div>
 
     <!-- MAIN DOCUMENT WRAPPER -->
@@ -281,94 +279,74 @@
                         TLR
                     </div>
                     <div>
-                        <h1 class="font-heading font-extrabold text-navy-950 text-base tracking-wider">TERAS LEGACY RESOURCE</h1>
+                        <h1 class="font-heading font-extrabold text-navy-950 text-base tracking-wider doc_advisorName"></h1>
                         <p class="text-[10px] font-semibold text-gold-700 tracking-widest uppercase">Advisory & Consultancy Services</p>
-                        <p class="text-[9.5px] text-gray-500">Reg No: <span class="doc_advisorReg">202603031087 (003819597-A)</span></p>
+                        <p class="text-[9.5px] text-gray-500">Reg No: <span class="doc_advisorReg"></span></p>
                     </div>
                 </div>
                 <div class="text-right">
                     <span class="inline-block bg-navy-950 text-white text-[9.5px] font-semibold px-2 py-0.5 rounded tracking-wide uppercase">
                         Legal Agreement
                     </span>
-                    <p class="text-[11px] text-gray-500 mt-0.5">Ref: TLR/FIN/<span id="doc_refNo">2026-8842</span></p>
+                    <p class="text-[11px] text-gray-500 mt-0.5">Ref: <span id="doc_refNo"></span></p>
                 </div>
             </div>
 
-            <div class="legal-header-line mb-2.5"></div>
+            <div class="legal-header-line mb-4"></div>
 
             <!-- TITLE BLOCK -->
-            <div class="text-center mb-2.5">
-                <h2 class="font-heading text-lg font-bold text-navy-950 tracking-wide uppercase">CONSULTANCY SERVICES AGREEMENT</h2>
-                <p class="text-[10.5px] text-gray-600 italic mt-0.5">This Agreement is made and entered into as of <span class="doc_agreementDate font-semibold text-gray-800">12TH JUNE 2026</span></p>
+            <div class="text-center mb-6">
+                <h2 class="font-heading text-xl font-bold text-navy-950 tracking-wide uppercase">SERVICE AGREEMENT</h2>
             </div>
 
             <!-- PARTIES -->
-            <div class="bg-gray-50 border border-gray-200 rounded-lg p-2.5 mb-2.5 text-xs space-y-1.5">
-                <div class="flex items-start">
-                    <span class="font-bold text-navy-900 w-24 shrink-0 uppercase">BETWEEN:</span>
-                    <div>
-                        <p class="font-bold text-gray-900 uppercase doc_advisorName">TERAS LEGACY RESOURCE ADVISORY</p>
-                        <p class="text-gray-600">(Registration No. <span class="doc_advisorReg">202603031087 (003819597-A)</span>), a corporate entity duly registered under the laws of Malaysia, having its principal place of business in Malaysia (hereinafter referred to as the <strong>"Consultant"</strong>).</p>
-                    </div>
+            <div class="mb-6 text-[13px] text-gray-800 space-y-2">
+                <div class="grid grid-cols-[80px_1fr] items-center">
+                    <span class="font-bold">Date:</span>
+                    <span class="border-b border-gray-400 doc_agreementDate min-h-[20px] inline-block w-64 pb-0.5"></span>
                 </div>
-                <div class="border-t border-gray-200 pt-1.5 flex items-start">
-                    <span class="font-bold text-navy-900 w-24 shrink-0 uppercase">AND:</span>
-                    <div>
-                        <p class="font-bold text-gray-900 uppercase doc_clientName">MOHD YUSRY BIN MOHD YUSOFF</p>
-                        <p class="text-gray-600">Identification Card (NRIC) No.: <span class="doc_clientIc font-medium text-gray-900">840520-14-5185</span></p>
-                        <p class="text-gray-600">Residing at: <span class="doc_clientAddress font-medium text-gray-900">2 JALAN PANDAN 7/3, PANDAN JAYA, CHERAS, 55100 KUALA LUMPUR</span> (hereinafter referred to as the <strong>"Client"</strong>).</p>
-                    </div>
+                <div class="grid grid-cols-[80px_1fr] items-center">
+                    <span class="font-bold">Client:</span>
+                    <span class="border-b border-gray-400 doc_clientName min-h-[20px] inline-block w-full pb-0.5 uppercase"></span>
                 </div>
-                <p class="text-[9.5px] text-gray-500 italic text-center">
-                    (The Consultant and the Client shall hereinafter be referred to individually as a "Party" and collectively as the "Parties".)
-                </p>
+                <div class="grid grid-cols-[80px_1fr] items-center">
+                    <span class="font-bold">NRIC:</span>
+                    <span class="border-b border-gray-400 doc_clientIc min-h-[20px] inline-block w-64 pb-0.5"></span>
+                </div>
             </div>
 
-            <!-- RECITALS / OPERATIVE CLAUSES -->
-            <div class="space-y-2.5">
+            <!-- CLAUSES PAGE 1 -->
+            <div class="space-y-4">
                 <div>
-                    <h3 class="font-heading font-bold text-navy-900 text-[11.5px] border-b border-navy-900/20 pb-0.5 mb-1">1. DEFINITIONS & INTERPRETATION</h3>
-                    <div class="legal-clause space-y-1 text-gray-700">
-                        <p><strong>1.1</strong> The Consultant is a professional financial advisory and consultancy firm providing specialized advisory services, including but not limited to credit evaluation, document restructuring, and loan negotiation, assisting clients in obtaining approvals for personal financing, corporate financing, and asset management from licensed financial institutions operating in Malaysia (<strong>"Financing"</strong>).</p>
-                        <p><strong>1.2</strong> The Client is an individual or entity desirous of obtaining financial facilities and services from licensed financial institutions for personal or business growth purposes.</p>
-                        <p><strong>1.3</strong> The Client hereby formally appoints <strong>TERAS LEGACY RESOURCE ADVISORY</strong> to act as its exclusive financial advisor, and the Consultant accepts such appointment subject to the mutual covenants and conditions hereinafter contained.</p>
-                        <p><strong>1.4</strong> This Agreement shall remain valid, binding, and legally enforceable until all financial obligations and fee distributions are fully performed or terminated in accordance with the provisions herein.</p>
+                    <h3 class="font-bold text-navy-900 text-sm mb-1 uppercase">Engagement and Services</h3>
+                    <div class="legal-clause space-y-1.5 text-gray-700">
+                        <p><strong>Engagement.</strong> The Company hereby engages the Advisor to provide and perform the financial advisor services and the Advisor hereby accepts the engagement.</p>
+                        <p><strong>Standard of Services.</strong> All Services to be provided by the Advisor shall be performed with promptness and diligence in a workman-like manner and at a level of proficiency. To be expected of a Advisor with the background and experience that Advisor has represented it has, the company shall provide such access to its information, property and personnel as may be reasonably required in order to permit the Advisor to perform the Services.</p>
                     </div>
                 </div>
 
                 <div>
-                    <h3 class="font-heading font-bold text-navy-900 text-[11.5px] border-b border-navy-900/20 pb-0.5 mb-1">2. TERMS OF AGREEMENT & CONSIDERATION</h3>
-                    <div class="legal-clause space-y-1 text-gray-700">
-                        <p><strong>2.1 Consideration:</strong> In consideration of the professional services, documentation management, and financial advisory provided by the Consultant resulting in the successful issuance of a Letter of Offer or approval of the Financing by a licensed financial institution, the Parties agree to the fee structure outlined in Section 2(A).</p>
+                    <h3 class="font-bold text-navy-900 text-sm mb-1 uppercase">Consultancy Fee and Payment</h3>
+                    <div class="legal-clause space-y-1.5 text-gray-700">
+                        <p><strong>Consultancy Fee,</strong> In consideration of the Services to be rendered here under, the Company shall pay Advisor a Consultancy fee for Services provided.</p>
                     </div>
                 </div>
 
-                <!-- SECTION A -->
-                <div class="bg-gray-50/80 border-l-4 border-navy-900 p-2.5 rounded-r text-xs space-y-1">
-                    <h4 class="font-bold text-navy-950 uppercase tracking-wider text-[11px]">A. CONSULTANT'S FEES & PAYMENT TERMS</h4>
-                    <p class="legal-clause text-gray-700">
-                        <strong>1. Consultation Fees:</strong> The Client irrevocably agrees and undertakes to pay the Consultant a Professional Fee equivalent to <span class="font-bold text-navy-900 doc_feeRate">19%</span> of the total approved Financing amount (<strong>"Consultant's Fees"</strong>), together with an additional <span class="font-bold text-navy-900 doc_sstRate">8%</span> Service Tax (SST) calculated upon the Consultation Fee amount, payable upon successful approval and disbursement of the Financing.
-                    </p>
-                    <p class="legal-clause text-gray-700">
-                        <strong>2. Payment Schedule:</strong> Payment of the Consultant's Fees shall be settled strictly within <strong>one (1) business day (24 hours)</strong> upon the occurrence of either of the following events:
-                    </p>
-                    <ul class="list-disc pl-5 text-gray-700 space-y-0.5 text-[11px]">
-                        <li>The Financing amount being credited into the Client's designated bank account; OR</li>
-                        <li>Confirmation that the Financing has been disbursed to the relevant redemption banks/creditors as stated in the Letter of Offer.</li>
-                    </ul>
-                    <p class="legal-clause text-gray-700">
-                        <strong>3. Scope of Fee:</strong> The Consultation Fee covers professional evaluation, financial structuring, document processing, negotiations with bank underwriters, and administrative costs. No fee is charged to the credit institution directly.
-                    </p>
-                    <p class="legal-clause text-gray-700">
-                        <strong>4. No Upfront Fee Policy:</strong> The Consultant agrees that no upfront deposit or advance payment shall be demanded from the Client prior to the official financing approval.
-                    </p>
+                <div>
+                    <h3 class="font-bold text-navy-900 text-sm mb-1 uppercase">Work Product and License</h3>
+                    <div class="legal-clause space-y-1.5 text-gray-700">
+                        <p><strong>Defined,</strong> in this Agreement the term "Work Product" shall mean all work product generated by Advisor solely or jointly with others in the performance of the Services, including processes, know-how, ideas, discoveries, improvements and trade secrets.</p>
+                        <p><strong>Ownership,</strong> Advisor agrees to assign and does hereby assign to all rights of the Company, title and interest in to the Work Product. All Work Products shall be the sole and exclusive property of the Company. Advisor will not have any rights and kind of whatsoever in terrible Work Product. Advisor agrees, at the request and cost of Company, to promptly sign, execute, make and do all Company's entire right, title, and interest in to any Work Product.</p>
+                        <p>Advisor will not make any use of any of the Work Product in any manner without the Company's prior written consent. All Work Product shall be promptly communicated to Company.</p>
+                        <p><strong>License.</strong> In the event that Advisor integrates any work that was previously created by the Advisor into any Work Product, the Advisor shall grant to, and Company is here by granted, a worldwide, royalty fee, perpetual, irrevocable license to exploit the incorporated items, including, but not limited to, any and all copyright, patents, design, trade secrets, trademarks or other intellectual property rights, in connection with the Work Product in any manner that Company deems appropriate. Advisor warrants that it shall not knowingly incorporate into any Work Product or any material that would infringe any intellectual property rights of any third party.</p>
+                    </div>
                 </div>
             </div>
 
             <!-- PAGE FOOTER -->
-            <div class="absolute bottom-4 left-6 right-6 flex justify-between items-center text-[10px] text-gray-400 border-t border-gray-200 pt-1.5">
-                <p>TLR Advisory | Confidential Service Agreement</p>
-                <p>Page 1 of 3</p>
+            <div class="absolute bottom-6 left-6 right-6 flex justify-between items-center text-[10px] text-gray-400 border-t border-gray-200 pt-2">
+                <p class="doc_advisorName uppercase"></p>
+                <p>Page 1 of 2</p>
             </div>
         </section>
 
@@ -376,234 +354,104 @@
         <section class="a4-page">
             <div class="watermark">TLR ADVISORY</div>
 
-            <!-- SUB-HEADER -->
-            <div class="flex justify-between items-center border-b border-gray-200 pb-2 mb-3 text-xs text-gray-500">
-                <span class="font-heading font-semibold text-navy-900">TERAS LEGACY RESOURCE ADVISORY</span>
-                <span>CONSULTANCY SERVICES AGREEMENT</span>
-            </div>
-
-            <div class="space-y-3.5">
-                <!-- SECTION B -->
+            <div class="space-y-3">
                 <div>
-                    <h4 class="font-bold text-navy-950 uppercase tracking-wider text-[11.5px] mb-1">B. CONFLICT OF INTEREST & LIMITATION OF LIABILITY</h4>
-                    <div class="legal-clause space-y-1 text-gray-700">
-                        <p><strong>1. Scope of Role:</strong> The services provided by the Consultant are strictly advisory in facilitating the Client's submission to licensed financial institutions. Final credit assessment and interest rates remain under the sole discretion of the respective banks.</p>
-                        <p><strong>2. Institutional Independence:</strong> The Consultant has no direct influence over internal bank credit committees and shall not be liable for any institutional delay, interest adjustment, or partial rejection by banking institutions.</p>
-                        <p><strong>3. Client Representation:</strong> The Client shall not misrepresent the Consultant as an official branch or employee of the lending financial institution.</p>
+                    <h3 class="font-bold text-navy-900 text-sm mb-0.5 uppercase">Confidential Information</h3>
+                    <div class="legal-clause space-y-1.5 text-gray-700">
+                        <p><strong>Defined,</strong> In this Agreement the term "Confidential Information" shall mean the Work Product and any all information relating to Company's business, including, but not limited to, research, developments, product, services, diagrams, formulae, processes, techniques, technology, firmware, software, know-how, design, ideas, discoveries, inventions, improvements, copyrights, trademarks, trade secrets, customer, suppliers, markets, marketing, finances disclosed by Company either directly or indirectly in writing, orally or visually, to Advisor. Confidential Information does not include information which:</p>
+                        <ul class="list-[lower-alpha] pl-5 space-y-0.5">
+                            <li>is in or comes into the public domain without breach of this Agreement by Advisor.</li>
+                            <li>was in the possession of the Advisor prior to receipt from Company and was not acquired by the Advisor from the Company under an obligation of confidentiality or non-use to the Company, or</li>
+                            <li>is independently developed by Advisor without use of any Confidential Information of the Company.</li>
+                        </ul>
+                        <p><strong>Obligation of Non Disclosure and Non-Use.</strong> Unless otherwise agreed to in advance and in Writing by the Company, Advisor will not, except as required by law or court order, use the Confidential Information to any third party. Advisor may disclose the Confidential Information only to those of its employees who need to know such information. In addition, prior to any disclosure of such Confidential Information to any such employee, such employee shall be made aware of the confidential nature of the Confidential Information and shall execute, or shall already be bounded by a non-disclosure agreement containing the terms and conditions consistent with the terms and conditions of this Agreement. In any event, Advisor shall be responsible for any breach of the terms and conditions of this Agreement by any of its employees. Advisor shall use the same degree of care to avoid disclosure of the Confidential Information as it employs with respect to its own Confidential Information of like importance, but not less than a reasonable degree of care.</p>
+                        <p><strong>Return of Confidential Information.</strong> Upon the termination or expiration of this Agreement for any reason, or upon Company's earlier request, Advisor will deliver to Company all of Company's property or Confidential Information in tangible form that Advisor may have in its possession or control. The Advisor may retain one copy of the Confidential Information in its legal files.</p>
                     </div>
                 </div>
 
-                <!-- SECTION C -->
                 <div>
-                    <h4 class="font-bold text-navy-950 uppercase tracking-wider text-[11.5px] mb-1">C. PERSONAL DATA PROTECTION & AUTHORIZATION</h4>
-                    <div class="legal-clause space-y-1 text-gray-700">
-                        <p><strong>1. Data Consent:</strong> Pursuant to the Personal Data Protection Act (PDPA), the Client hereby explicitly consents and authorizes <strong>TERAS LEGACY RESOURCE ADVISORY</strong> to collect, store, verify, and process personal identification documents, bank statements, salary slips, CTOS/CCRIS credit reports, and tax documents exclusively for the Financing application.</p>
-                        <p><strong>2. Third-Party Submission:</strong> The Client grants full authority to the Consultant to submit all verified credentials to licensed banks or financial institutions on the Client's behalf.</p>
+                    <h3 class="font-bold text-navy-900 text-sm mb-0.5 uppercase">Independent Contractor</h3>
+                    <div class="legal-clause space-y-1.5 text-gray-700">
+                        <p>The Advisor agrees that all Services will be rendered by it as an independent contractor and that this Agreement does not create an employer - employee relationship between the Advisor and the Company. The Advisor shall have no right to receive any employee benefits provided by the Company to its employees. Advisor agrees to pay all the taxes due in respect of the Consultancy Fee and to indemnify the Company in respect of any obligation that may be imposed on the Company to pay any such taxes or resulting from Advisor's being determined not to be an independent contractor. This Agreement does not authorize the Advisor to act for the Company as its agent or to make commitments on behalf of the Company.</p>
                     </div>
                 </div>
 
-                <!-- SECTION D -->
                 <div>
-                    <h4 class="font-bold text-navy-950 uppercase tracking-wider text-[11.5px] mb-1">D. COOPERATION & CLIENT UNDERTAKINGS</h4>
-                    <div class="legal-clause space-y-1 text-gray-700">
-                        <p><strong>1. Best Efforts:</strong> The Client undertakes to provide true, authentic, and accurate financial records and respond promptly to bank verification calls or biometric attendance requests.</p>
-                        <p><strong>2. Validity Period:</strong> Should the Consultant be unable to secure a Financing approval within three (3) months from the execution date of this Agreement due to institutional factors, this Agreement shall expire without further financial liability on either Party.</p>
-                        <p><strong>3. Non-Circumvention:</strong> The Client covenants not to bypass, exclude, or deal directly with any financial institution or banker introduced by the Consultant for the purpose of avoiding fee obligations under this Agreement.</p>
+                    <h3 class="font-bold text-navy-900 text-sm mb-0.5 uppercase">Non-Publicity</h3>
+                    <div class="legal-clause space-y-1.5 text-gray-700">
+                        <p>Each of Company and Advisor agrees not to disclose the existence or contents of this Agreement to any third party without the prior written consent of the other parties except: (i) to its advisors, attorneys or auditors who haves to know such information, (ii) as required by law or court order, (iii) as required in connection with the reorganization of the Party, or its merger into any other corporations, or the sale by Party of all or substantially all of its properties or assets, or (iv) as may be required in connection with the enforcement of this Agreement.</p>
                     </div>
                 </div>
 
-                <!-- SECTION E & F -->
-                <div class="grid grid-cols-1 gap-2.5">
-                    <div class="bg-red-50/50 border border-red-100 p-2.5 rounded">
-                        <h4 class="font-bold text-red-950 uppercase tracking-wider text-[11px] mb-0.5">E. CANCELLATION & TERMINATION PENALTY</h4>
-                        <div class="legal-clause space-y-1 text-gray-700 text-[11px]">
-                            <p><strong>1. Unilateral Cancellation:</strong> The Client explicitly agrees that this appointment cannot be unilaterally canceled while the Financing application is active or processing in bank committee.</p>
-                            <p><strong>2. Cancellation Fine:</strong> If the Client cancels, withdraws, or breaches this Agreement while an application is ongoing or after a Letter of Offer has been approved, a mandatory liquidated damage fee of <strong>RM 5,000.00</strong> (or full fee compensation equivalent to Section 2(A)) shall immediately become due and payable to the Consultant.</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-gray-50 border border-gray-200 p-2.5 rounded">
-                        <h4 class="font-bold text-navy-950 uppercase tracking-wider text-[11px] mb-0.5">F. LEGAL RECOVERY & DEFAULT CLAUSES</h4>
-                        <div class="legal-clause space-y-1 text-gray-700 text-[11px]">
-                            <p><strong>1. Late Payment Surcharge:</strong> A default surcharge of <strong>20% per annum</strong> shall automatically attach to any unpaid Consultation Fees if payment is delayed beyond five (5) business days from disbursement.</p>
-                            <p><strong>2. Credit Blacklisting & CTOS Reporting:</strong> In the event of willful non-payment, the Consultant reserves the legal right to report the outstanding debt to licensed credit reporting agencies (including CTOS, CCRIS, and legal recovery firms). A 20% Administrative Recovery Surcharge shall apply to reinstate credit status post-settlement.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- GENERAL PROVISIONS -->
                 <div>
-                    <h3 class="font-heading font-bold text-navy-900 text-xs border-b border-navy-900/20 pb-1 mb-1.5">3. ASSIGNMENT & JURISDICTION</h3>
-                    <div class="legal-clause space-y-1 text-gray-700">
-                        <p><strong>3.1 Governing Law:</strong> This Agreement shall be governed by and construed strictly in accordance with the laws of Malaysia. Any dispute arising out of this Agreement shall first be resolved through good-faith mediation failing which it shall be referred to the courts of Malaysia.</p>
-                        <p><strong>3.2 Entire Agreement:</strong> This document represents the entire understanding between <strong>TERAS LEGACY RESOURCE ADVISORY</strong> and the Client, superseding all prior oral or written promises.</p>
+                    <h3 class="font-bold text-navy-900 text-sm mb-0.5 uppercase">Assignment</h3>
+                    <div class="legal-clause space-y-1.5 text-gray-700">
+                        <p>The Services to be performed by Advisor hereunder are personal in nature, and Company has engaged Advisor as a result of Advisor's expertise relating to such Services. Advisor, therefore, agrees that it will not assign, sell, transfer, delegate or otherwise dispose this Agreement or any right, duty or obligation under this Agreement without the Company's prior written consent. Nothing in this Agreement shall prevent the assignment by the Company of this Agreement or any right, duty or obligation hereunder to any third party.</p>
                     </div>
                 </div>
-            </div>
 
-            <!-- PAGE FOOTER -->
-            <div class="absolute bottom-5 left-6 right-6 flex justify-between items-center text-[10px] text-gray-400 border-t border-gray-200 pt-2">
-                <p>TLR Advisory | Confidential Service Agreement</p>
-                <p>Page 2 of 3</p>
+                <div>
+                    <h3 class="font-bold text-navy-900 text-sm mb-0.5 uppercase">General</h3>
+                    <div class="legal-clause space-y-1.5 text-gray-700">
+                        <p>This Agreement constitutes the entire agreement if the Parties on the subject hereof and supersedes all prior understandings and instruments on such subject. This Agreement may not be modified other than by a written instrument executed by duly authorized representatives of the Parties. No waiver of any provision of this Agreement shall constitute a waiver of any other provision(s) or of the same provision on another occasion. Failure of either Party to enforce any provision of this Agreement shall not constitute a waiver of such provision or any other provision(s) of this Agreement. Should any provision of this Agreement be held by a court of competent jurisdiction to be illegal, invalid or unenforceable, such provision may be modified by such court incompliance with the law giving effect to the intent of the Parties and enforced as modified. All other terms and conditions of this Agreement shall remain in full force and effect and shall be construed in accordance with the modified provision.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- PAGE 3 -->
         <section class="a4-page">
             <div class="watermark">TLR ADVISORY</div>
-
-            <!-- SUB-HEADER -->
-            <div class="flex justify-between items-center border-b border-gray-200 pb-2 mb-3 text-xs text-gray-500">
-                <span class="font-heading font-semibold text-navy-900">TERAS LEGACY RESOURCE ADVISORY</span>
-                <span>DECLARATION & EXECUTION SCHEDULE</span>
-            </div>
-
-            <div class="space-y-3.5">
-                <!-- DECLARATION -->
-                <div class="bg-navy-950 text-white p-3.5 rounded-lg shadow-sm">
-                    <h3 class="font-heading font-bold text-gold-500 text-xs mb-1.5 uppercase tracking-wide">CLIENT DECLARATION & UNDERTAKING</h3>
-                    <p class="text-[11px] text-gray-200 leading-relaxed text-justify">
-                        I, <strong class="text-white doc_clientName uppercase">MOHD YUSRY BIN MOHD YUSOFF</strong> (NRIC: <strong class="text-gold-500 doc_clientIc">840520-14-5185</strong>), hereby confirm that I have read, thoroughly understood, and accepted all the terms and conditions set forth in this Consultancy Services Agreement. I warrant that all documents provided are genuine and hereby authorize <strong>TERAS LEGACY RESOURCE ADVISORY</strong> to proceed with my financing application.
-                    </p>
+            <div class="space-y-4">
+                <!-- PAYMENT TERM & CANCELLATION -->
+                <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg space-y-3">
+                    <h3 class="font-bold text-navy-900 text-sm uppercase border-b border-gray-300 pb-1">Payment Term</h3>
+                    <div class="legal-clause text-gray-800 space-y-2">
+                        <p>I/WE, the undersigned, acknowledge and agree of the above Agreement and Terms & Conditions. <span class="font-bold doc_consultancyFee border-b border-gray-400 min-w-[80px] inline-block text-center text-red-600"></span> hereinafter referred to as {"the Consultancy Fee"} shall be paid by the Customer to the Co-Founder Account Number within ONE (1) WORKING DAYS after loan disbursement.</p>
+                        <p class="font-bold text-navy-950 bg-white p-2 border border-gray-200 inline-block rounded min-w-[150px] min-h-[30px]" id="doc_bankDetails"></p>
+                        <p class="text-red-700 font-medium mt-2">If doing cancellation when loan is processing/ongoing/approved & signing this agreement, a fine of <span class="font-bold doc_cancellationFine border-b border-red-300 min-w-[60px] inline-block text-center text-red-600"></span> will be imposed.</p>
+                    </div>
                 </div>
 
                 <!-- SIGNATURE SECTION -->
-                <div class="pt-2 border-t border-gray-200">
-                    <p class="text-[11px] font-bold text-navy-900 mb-3 uppercase tracking-wider">IN WITNESS WHEREOF, the Parties hereto have executed this Agreement on the date first written above.</p>
-
-                    <div class="grid grid-cols-2 gap-6">
-                        <!-- CONSULTANT SIGNATURE -->
-                        <div class="space-y-2 relative">
-                            <p class="text-[11px] font-bold text-gray-700 uppercase">Signed for & on behalf of:<br><span class="text-navy-900 doc_advisorName">TERAS LEGACY RESOURCE ADVISORY</span></p>
-
-                            <!-- SIGNATURE & STAMP PLACEHOLDER CONTAINER -->
-                            <div class="h-24 border-b-2 border-dashed border-gray-400 flex items-center justify-between relative px-2">
-                                <!-- Digital Signature Graphic -->
-                                <div class="font-serif italic text-2xl text-navy-900 select-none opacity-80 pt-2">
-                                    KamarulHaqim
-                                </div>
-
-                                <!-- Official Seal SVG Stamp -->
-                                <div class="stamp-seal absolute right-1 top-0 pointer-events-none">
-                                    <span class="text-[6.5px]">★ OFFICIAL SEAL ★</span>
-                                    <span class="font-black text-[7.5px] my-0.5 text-navy-950">TERAS LEGACY RESOURCE</span>
-                                    <span class="text-[6.5px]">REG: 003819597-A</span>
-                                    <span class="text-[6px] text-gold-700 font-bold mt-0.5">ADVISORY</span>
-                                </div>
-                            </div>
-
-                            <div class="text-[11px] space-y-0.5">
-                                <p class="font-bold text-gray-900 doc_directorName">MOHD KAMARUL HAQIM BIN ANUAR</p>
-                                <p class="text-gray-600">Managing Director / Authorized Signatory</p>
-                                <p class="text-gray-500 text-[10px]">Date: <span class="doc_agreementDate">12TH JUNE 2026</span></p>
-                            </div>
-                        </div>
-
-                        <!-- CLIENT SIGNATURE -->
+                <div class="mt-6 pt-4 border-t border-gray-300">
+                    <p class="text-xs text-gray-800 mb-6 text-justify">I/We understand and intending to be legally bound, all Parties have duly executed this Agreement by their authorized representatives as of the date first written above.</p>
+                    
+                    <div class="grid grid-cols-2 gap-8 mt-4">
                         <div class="space-y-2">
-                            <p class="text-[11px] font-bold text-gray-700 uppercase">Signed & Agreed by Client:<br><span class="text-navy-900">INDIVIDUAL APPLICANT</span></p>
-
-                            <div class="h-24 border-b-2 border-dashed border-gray-400 flex items-end pb-2 px-2">
-                                <div class="font-serif italic text-2xl text-blue-900 select-none opacity-90">
-                                    MohdYusry
+                            <p class="text-sm font-bold text-gray-800">Signed by:</p>
+                            <div class="h-20 border-b border-gray-400 relative flex items-end pb-1">
+                                <div class="font-serif italic text-2xl text-navy-900 select-none opacity-80 pl-2" id="doc_directorSig"></div>
+                                <!-- Official Seal SVG Stamp - Hidden if empty, shown if has text -->
+                                <div id="doc_stamp" class="stamp-seal absolute right-0 top-[-20px] pointer-events-none hidden">
+                                    <span class="text-[6.5px]">★ OFFICIAL SEAL ★</span>
+                                    <span class="font-black text-[7.5px] my-0.5 text-navy-950 doc_advisorName"></span>
+                                    <span class="text-[6.5px]">REG: <span class="doc_advisorReg"></span></span>
                                 </div>
                             </div>
-
-                            <div class="text-[11px] space-y-0.5">
-                                <p class="font-bold text-gray-900 doc_clientName">MOHD YUSRY BIN MOHD YUSOFF</p>
-                                <p class="text-gray-600">NRIC: <span class="doc_clientIc">840520-14-5185</span></p>
-                                <p class="text-gray-500 text-[10px]">Date: <span class="doc_agreementDate">12TH JUNE 2026</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- APPENDIX: CLIENT LOAN PROPOSAL & DISBURSEMENT BREAKDOWN -->
-                <div class="mt-4 pt-3 border-t border-gray-300">
-                    <div class="flex items-center justify-between mb-1.5">
-                        <h4 class="font-heading font-bold text-navy-950 text-xs uppercase">SCHEDULE 1: CLIENT LOAN & DISBURSEMENT SUMMARY</h4>
-                        <span class="text-[9.5px] bg-gold-500/20 text-gold-700 font-bold px-2 py-0.5 rounded border border-gold-500/30">CONFIDENTIAL</span>
-                    </div>
-
-                    <div class="bg-gray-50 rounded-lg border border-gray-200 overflow-hidden text-xs">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-navy-950 text-white text-[10px]">
-                                    <th class="p-2 font-semibold">FACILITY & BANK PACKAGE</th>
-                                    <th class="p-2 font-semibold">APPROVED FACILITY</th>
-                                    <th class="p-2 font-semibold">TENURE & REPAYMENT</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200 text-gray-700">
-                                <tr>
-                                    <td class="p-2 font-bold text-navy-900 text-[11px]">
-                                        PEMBIAYAAN PERIBADI - i BANK RAKYAT<br>
-                                        <span class="font-normal text-gray-500 text-[10px]">Pakej Afdhal-i Premium</span>
-                                    </td>
-                                    <td class="p-2 font-bold text-gray-900 text-xs">
-                                        <span id="doc_dispMaxLoan">RM 338,000.00</span>
-                                    </td>
-                                    <td class="p-2 text-[11px]">
-                                        <span id="doc_dispTenure">10 TAHUN</span><br>
-                                        <span class="text-navy-900 font-semibold">Monthly: RM <span id="doc_dispMonthly">4,101.00</span></span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <div class="p-2.5 bg-white border-t border-gray-200 grid grid-cols-2 gap-3">
-                            <!-- REDEMPTION / SETTLEMENT LIST -->
-                            <div>
-                                <p class="font-bold text-navy-900 text-[10px] mb-1 uppercase">Direct Credit / Settlement Liabilities:</p>
-                                <ul class="space-y-0.5 text-[10px] text-gray-600 bg-gray-50 p-1.5 rounded border border-gray-100">
-                                    <li class="flex justify-between"><span>• CC CIMB:</span> <span class="font-medium text-gray-900">RM 19,860.00</span></li>
-                                    <li class="flex justify-between"><span>• CC MBB:</span> <span class="font-medium text-gray-900">RM 16,447.00</span></li>
-                                    <li class="flex justify-between"><span>• CC PUBLIC:</span> <span class="font-medium text-gray-900">RM 5,239.00</span></li>
-                                    <li class="flex justify-between"><span>• CC MUAMALAT:</span> <span class="font-medium text-gray-900">RM 14,783.00</span></li>
-                                    <li class="flex justify-between"><span>• OHR MBB:</span> <span class="font-medium text-gray-900">RM 17,333.00</span></li>
-                                    <li class="flex justify-between pt-1 border-t border-gray-200 font-bold text-navy-900">
-                                        <span>Total Settlements:</span> <span id="doc_dispTotalSettle">RM 73,662.00</span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- NET PAYOUT COMPUTATION -->
-                            <div class="space-y-1 text-[10px] bg-navy-950 text-white p-2.5 rounded-lg shadow-sm">
-                                <p class="font-bold text-gold-500 text-[10.5px] uppercase border-b border-gray-700 pb-0.5">Fee & Net Cash Computation</p>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-300">Net Disbursement:</span>
-                                    <span class="font-semibold text-white" id="doc_dispDisburse">RM 241,382.50</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-300">Consultation Fee (<span class="doc_feeRate">19%</span>):</span>
-                                    <span class="font-semibold text-gold-400" id="doc_dispFee">RM 45,862.67</span>
-                                </div>
-                                <div class="flex justify-between">
-                                    <span class="text-gray-300">Service Tax SST (<span class="doc_sstRate">8%</span>):</span>
-                                    <span class="font-semibold text-gold-400" id="doc_dispSst">RM 3,669.01</span>
-                                </div>
-                                <div class="flex justify-between pt-1.5 border-t border-gray-700 font-bold text-[11px] text-green-400">
-                                    <span>ESTIMATED NET CASH TO CLIENT:</span>
-                                    <span id="doc_dispNetCash">RM 191,850.82</span>
-                                </div>
+                            <div class="text-xs space-y-1">
+                                <p class="font-bold text-gray-900 uppercase doc_directorName min-h-[16px]"></p>
+                                <p class="text-gray-600 doc_advisorName min-h-[16px]"></p>
                             </div>
                         </div>
 
-                        <!-- BANK ACCOUNT PAYMENT INSTRUCTION -->
-                        <div class="p-2 bg-gold-50 border-t border-gold-200 text-[10px] text-gray-800 flex items-center justify-between">
-                            <div>
-                                <span class="font-bold text-navy-900"><i class="fa-solid fa-building-columns text-gold-600 mr-1"></i> Authorized Fee Collection Account:</span>
-                                <span class="ml-1">CIMB BANK: <strong>7072644592</strong> (Nur Syaziana / TLR Advisory Partner)</span>
+                        <div class="space-y-2">
+                            <p class="text-sm font-bold text-gray-800">Agreed by:</p>
+                            <div class="h-20 border-b border-gray-400 relative flex items-end pb-1">
+                                <div class="font-serif italic text-2xl text-blue-900 select-none opacity-90 pl-2" id="doc_clientSig"></div>
                             </div>
-                            <span class="text-[9.5px] bg-gold-600 text-white font-bold px-1.5 py-0.5 rounded">PAYABLE WITHIN 24 HRS</span>
+                            <div class="text-xs space-y-1">
+                                <p class="font-bold text-gray-900 uppercase doc_clientName min-h-[16px]"></p>
+                                <p class="text-gray-600">NRIC: <span class="doc_clientIc"></span></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- PAGE FOOTER -->
-            <div class="absolute bottom-5 left-6 right-6 flex justify-between items-center text-[10px] text-gray-400 border-t border-gray-200 pt-2">
-                <p>TLR Advisory | Confidential Service Agreement</p>
+            <div class="absolute bottom-6 left-6 right-6 flex justify-between items-center text-[10px] text-gray-400 border-t border-gray-200 pt-2">
+                <p class="doc_advisorName uppercase"></p>
                 <p>Page 3 of 3</p>
             </div>
         </section>
@@ -617,64 +465,96 @@
             drawer.classList.toggle('translate-x-full');
         }
 
-        // Live updating text fields across all pages
+        // Apply and close drawer with toast feedback
+        function applyAndCloseEditor() {
+            updateDocumentValues();
+            toggleEditor();
+            showToast();
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toastNotification');
+            if (!toast) return;
+            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            toast.classList.add('opacity-100', 'translate-y-0');
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+            }, 3000);
+        }
+
+        // Generate clean signature text from full name
+        function formatSignatureText(nameStr) {
+            if (!nameStr || !nameStr.trim()) return '';
+            const words = nameStr.trim().split(/\s+/).filter(w => !['BIN', 'BINTI', 'A/L', 'A/P', 'AL'].includes(w.toUpperCase()));
+            if (words.length === 0) return nameStr;
+            return words.map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('');
+        }
+
+        // Live updating text fields across all pages with fallbacks for blank values
         function updateDocumentValues() {
+            const clientNameVal = document.getElementById('input_clientName')?.value?.trim() || '';
+            const clientIcVal = document.getElementById('input_clientIc')?.value?.trim() || '';
+
+            // Update client fields with fallbacks
+            document.querySelectorAll('.doc_clientName').forEach(el => {
+                el.textContent = clientNameVal ? clientNameVal : '';
+            });
+
+            document.querySelectorAll('.doc_clientIc').forEach(el => {
+                el.textContent = clientIcVal ? clientIcVal : '';
+            });
+
             const mappings = {
                 'input_advisorName': '.doc_advisorName',
                 'input_advisorReg': '.doc_advisorReg',
                 'input_directorName': '.doc_directorName',
-                'input_clientName': '.doc_clientName',
-                'input_clientIc': '.doc_clientIc',
                 'input_agreementDate': '.doc_agreementDate',
-                'input_clientAddress': '.doc_clientAddress',
-                'input_feeRate': '.doc_feeRate',
-                'input_sstRate': '.doc_sstRate',
+                'input_consultancyFee': '.doc_consultancyFee',
+                'input_cancellationFine': '.doc_cancellationFine'
             };
 
             for (const [inputId, selector] of Object.entries(mappings)) {
-                const val = document.getElementById(inputId).value;
+                const inputEl = document.getElementById(inputId);
+                if (!inputEl) continue;
+                const val = inputEl.value;
                 document.querySelectorAll(selector).forEach(el => {
-                    if (inputId === 'input_feeRate' || inputId === 'input_sstRate') {
-                        el.textContent = val + '%';
-                    } else {
-                        el.textContent = val;
-                    }
+                    el.textContent = val;
                 });
             }
 
-            // Update proposal displays
-            document.getElementById('doc_dispTenure').textContent = document.getElementById('input_tenure').value;
-            document.getElementById('doc_dispMonthly').textContent = document.getElementById('input_monthly').value;
+            // Reference Number
+            const refEl = document.getElementById('input_refNo');
+            if (refEl) {
+                const docRef = document.getElementById('doc_refNo');
+                if (docRef) docRef.textContent = refEl.value;
+            }
 
-            recalculateProposal();
-        }
+            // Bank Account / Payment details
+            const bankDetailsEl = document.getElementById('input_bankDetails');
+            if (bankDetailsEl) {
+                const docBankDet = document.getElementById('doc_bankDetails');
+                if (docBankDet) docBankDet.textContent = bankDetailsEl.value;
+            }
 
-        // Dynamic financial calculations
-        function recalculateProposal() {
-            const maxLoan = parseFloat(document.getElementById('input_maxLoan').value) || 0;
-            const feeRate = parseFloat(document.getElementById('input_feeRate').value) || 0;
-            const sstRate = parseFloat(document.getElementById('input_sstRate').value) || 0;
-            const totalSettle = parseFloat(document.getElementById('input_totalSettle').value) || 0;
+            // Signature Graphics
+            const clientSigEl = document.getElementById('doc_clientSig');
+            if (clientSigEl) clientSigEl.textContent = formatSignatureText(clientNameVal);
 
-            // Fixed statutory bank deductions for illustration
-            const takaful = 10652.50;
-            const securityDep = 12303.00;
-
-            // Calculations
-            const grossDisburse = maxLoan - takaful - securityDep - totalSettle;
-            const feeAmount = maxLoan * (feeRate / 100);
-            const sstAmount = feeAmount * (sstRate / 100);
-            const netCash = grossDisburse - feeAmount - sstAmount;
-
-            // Format numbers to MYR currency
-            const fmt = (num) => 'RM ' + num.toLocaleString('en-MY', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
-            document.getElementById('doc_dispMaxLoan').textContent = fmt(maxLoan);
-            document.getElementById('doc_dispTotalSettle').textContent = fmt(totalSettle);
-            document.getElementById('doc_dispDisburse').textContent = fmt(grossDisburse);
-            document.getElementById('doc_dispFee').textContent = fmt(feeAmount);
-            document.getElementById('doc_dispSst').textContent = fmt(sstAmount);
-            document.getElementById('doc_dispNetCash').textContent = fmt(netCash);
+            const directorNameVal = document.getElementById('input_directorName')?.value || '';
+            const directorSigEl = document.getElementById('doc_directorSig');
+            if (directorSigEl) directorSigEl.textContent = formatSignatureText(directorNameVal);
+            
+            // Toggle stamp visibility if advisor name exists
+            const stampEl = document.getElementById('doc_stamp');
+            const advisorNameVal = document.getElementById('input_advisorName')?.value || '';
+            if (stampEl) {
+                if (advisorNameVal.trim() !== '') {
+                    stampEl.classList.remove('hidden');
+                } else {
+                    stampEl.classList.add('hidden');
+                }
+            }
         }
 
         // Initialize default sync
